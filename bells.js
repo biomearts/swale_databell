@@ -62,24 +62,30 @@ function draw() {
     clear();
 
     var h = hour() + "";
-    var min = minute();
+    var m = minute();
+    var s = second();
 
-    var s = (60 - second());
-    if (m == 0 && s == 59) {
+    if (m == 0 && s == 1 && playing == false) {
+        console.log("PLAY");
         play();
     }
-    if (m == 0) {
+    if (m > 0 && playing == true) {
+        playing = false;
+    }
+
+    var m = (60 - m);
+    if (m == 60) m = 0;
+    m = m + "";
+    if (m.length < 2) m = "0" + m;
+
+    s = (60 - second());
+    if (m == "00") {
         s = "00";
     } else { 
         if (s == 60) s = 0;
         s = s + "";
         if (s.length < 2) s = "0" + s;
     }
-
-    var m = (60 - min);
-    if (m == 60) m = 0;
-    m = m + "";
-    if (m.length < 2) m = "0" + m;
 
     textAlign(CENTER, CENTER);
     textFont("Monaco");
