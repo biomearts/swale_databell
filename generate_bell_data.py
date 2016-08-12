@@ -83,7 +83,7 @@ for key, signal in signals.items():
 path = os.path.abspath(os.path.join(os.path.dirname(__file__), "bell_data.js"))
 with open(path, 'w') as f:
     f.write("var data = " + json.dumps(output) + ";")
-
+log.info("Wrote %s" % path)
 
 
 """
