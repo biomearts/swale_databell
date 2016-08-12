@@ -2,7 +2,7 @@
 
 """Generate bell onset times from a data feed"""
 
-import requests, json, datetime
+import requests, json, datetime, os
 import numpy as np
 import signal_processing as sp
 from housepy import util, log
@@ -80,7 +80,8 @@ for key, signal in signals.items():
 
 
 # write as a javascript object
-with open("bell_data.js", 'w') as f:
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), "bell_data.js"))
+with open(path, 'w') as f:
     f.write("var data = " + json.dumps(output) + ";")
 
 
