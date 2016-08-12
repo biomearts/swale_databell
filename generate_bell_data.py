@@ -12,7 +12,7 @@ from collections import OrderedDict
 # get the data from the last hour
 t = util.timestamp()
 start_dt = util.dt(t, tz="America/New_York")
-start_dt -= datetime.timedelta(hours=1, days=1)
+start_dt -= datetime.timedelta(hours=1)#, days=1)
 start_ds = str(start_dt)
 
 stop_dt = start_dt + datetime.timedelta(hours=1)

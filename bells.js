@@ -1,6 +1,7 @@
 var samples = [[], [], []];
 // var samples = [[]];
 var names = [];
+var playing = false;
 
 function preload() {
     var bank = 0;
@@ -20,7 +21,7 @@ function preload() {
 }
 
 function setup() {
-    var canvas = createCanvas(320, 240);
+    var canvas = createCanvas(800, 240);
     canvas.parent("p5");
     for (var d in data) {
         names.push(data[d][0]);
@@ -29,9 +30,12 @@ function setup() {
 }
 
 function mouseClicked() {
+    play();
+}
 
+function play() {
     console.log("Starting...");
-
+    playing = true;
     for (var d in data) {
         var times = data[d][1];
         var i = names.indexOf(data[d][0]);
@@ -51,11 +55,39 @@ function mouseClicked() {
             // }}(s), time);
         }
     }
-    
 }
 
 function draw() {
+
+    clear();
+
+    var h = hour() + "";
+    var min = minute();
+
+    var s = (60 - second());
+    if (m == 0 && s == 59) {
+        play();
+    }
+    if (m == 0) {
+        s = "00";
+    } else { 
+        if (s == 60) s = 0;
+        s = s + "";
+        if (s.length < 2) s = "0" + s;
+    }
+
+    var m = (60 - min);
+    if (m == 60) m = 0;
+    m = m + "";
+    if (m.length < 2) m = "0" + m;
+
+    textAlign(CENTER, CENTER);
+    textFont("Monaco");
+    textSize(100);
+    clock = text(h + ":" + m + ":" + s, 800/2, 240/2);
+
     // border
-    noFill();    
-    rect(0, 0, 319, 239);         
+    // noFill();    
+    // rect(0, 0, 799, 239);         
+
 }
