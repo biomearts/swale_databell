@@ -15,7 +15,7 @@ function preload() {
             var num = "" + i;
             if (num.length < 2) num = "0" + num;
             // console.log("Loading " + "samples/belfort" + num + ".MP3");
-            var sample = new Howl({src: ["samples/belfort" + num + ".MP3"], volume: 0.25});
+            var sample = new Howl({src: ["samples/belfort" + num + ".MP3"], volume: 0.5});
             samples.push(sample);
         } else {
             samples.push('nop');
@@ -31,13 +31,21 @@ function setup() {
         names.push(data[d][0]);
     }
     frameRate(2);
-
+    Howler.autoSuspend = false;
     console.log(names);
-    console.log("Loaded at " + hour() + ":" + minute() + ":" + second());        
-    var delay = ((60 - minute()) * 60) + (60 - second())
-    console.log("Remaining seconds: " + delay);
-    setTimeout(play, delay * 1000);
+    var delay = 60 - second();
+    setTimeout(function() {
+        checkTime();
+        setInterval(checkTime, 60000);
+    }, delay * 1000);    
+}
 
+function checkTime() {
+    console.log("checkTime " + minute() + ":" + second());
+    if (minute() == 0 && playing == false) {
+        playing = true;
+        play();
+    }
 }
 
 function mouseClicked() {
